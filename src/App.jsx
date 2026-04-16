@@ -187,8 +187,12 @@ function ReportModal({ report, onClose, onStatusChange }) {
     }
   };
 
-  const checklist = report.checks || {};
-  const checkedItems = Object.entries(checklist).filter(([, v]) => v).map(([k]) => k);
+  const checks = report.checks;
+  const checkedItems = Array.isArray(checks)
+    ? checks
+    : checks && typeof checks === "object"
+      ? Object.entries(checks).filter(([, v]) => v).map(([k]) => k)
+      : [];
 
   return (
     <div style={{
@@ -613,7 +617,7 @@ export default function App() {
             fontSize: 14, boxShadow: "0 2px 8px rgba(37,99,235,0.3)",
           }}>⊞</div>
           <div>
-            <span style={{ color: "#0f172a", fontWeight: 800, fontSize: 15, letterSpacing: -0.5 }}>InfraWatch</span>
+            <span style={{ color: "#0f172a", fontWeight: 800, fontSize: 15, letterSpacing: -0.5 }}>CVIMAP</span>
             <span style={{ color: "#94a3b8", fontSize: 12, marginLeft: 8, fontWeight: 400 }}>Admin Panel</span>
           </div>
           <div style={{
